@@ -11,16 +11,25 @@ fi
 echo "* Cleaning pacman cache & unnecesary packages..."
 if command -v pacman &> /dev/null; then
 	pacman -Sc --noconfirm
+
+	sleep 1
+	
 	pacman -Rns $(pacman -Qtdq 2>/dev/null) --noconfirm
 fi
+
+sleep 3
 
 echo "* Cleaning temporary files..."
 find /tmp -type f -mtime +7 -delete 2>/dev/null
 find /var/tmp -type f -mtime +7 -delete 2>/dev/null
 
+sleep 3
+
 echo "* Cleaning Journal Logs..."
 journalctl --rotate
 journalctl --vacuum-time=1s
+
+sleep 3
 
 # Clean user_home cache
 echo "* Cleaning $HOME/.cache/ directory..."
